@@ -7,7 +7,9 @@ dotenv.config({ silent: true });
 
 const cfenv = require("cfenv");
 
-const services = cfenv.getServices();
+const appEnv = cfenv.getAppEnv();
+
+const services = appEnv.getServices();
 
 const path = require("path");
 
@@ -25,13 +27,13 @@ const conversationConfig = {
 };
 
 // Use conversation credentials from cfenv when available.
-if (services.conversation) {
-    const { credentials } = services.conversation;
+if (services["conversation-demo-hackathon"]) {
+    const { credentials } = services["conversation-demo-hackathon"];
 
     Object.assign(conversationConfig, credentials);
 }
 
-const conversation = new ConversationV1(credentials);
+const conversation = new ConversationV1(conversationConfig);
 
 const app = express();
 
