@@ -3,10 +3,12 @@
 // Config
 const dotenv = require("dotenv");
 
+// @ts-ignore
 dotenv.config({ silent: true });
 
 const cfenv = require("cfenv");
 
+// @ts-ignore
 const appEnv = cfenv.getAppEnv();
 
 const services = appEnv.getServices();
@@ -94,7 +96,7 @@ app.post("/api/message", (req, res) => {
         (err, response) => {
             if (err) {
                 console.error(err);
-                res.json(500, response);
+                res.status(500).json(response);
             } else {
                 res.json(response);
             }
