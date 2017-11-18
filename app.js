@@ -5,6 +5,10 @@ const dotenv = require("dotenv");
 
 dotenv.config({ silent: true });
 
+const cfenv = require("cfenv");
+
+const services = cfenv.getServices();
+
 const path = require("path");
 
 const express = require("express");
@@ -14,11 +18,20 @@ const getWeather = require("yahoo-weather");
 
 const ConversationV1 = require("watson-developer-cloud/conversation/v1");
 
-const conversation = new ConversationV1({
+const conversationConfig = {
     username: process.env.WATSON_CONVERSATION_USERNAME,
     password: process.env.WATSON_CONVERSATION_PASSWORD,
     version_date: ConversationV1.VERSION_DATE_2017_05_26
-});
+};
+
+// Use conversation credentials from cfenv when available.
+if (services.conversation) {
+    const { credentials } = services.conversation;
+
+    Object.assign(conversationConfig, credentials);
+}
+
+const conversation = new ConversationV1(credentials);
 
 const app = express();
 
