@@ -53,6 +53,9 @@
             messages.forEach(m => printMessage(m, "watson"));
 
             printWeatherReport(weatherReport);
+        } else {
+            const { messages } = await response.json();
+            messages.forEach(m => printMessage(m, "watson"));
         }
     }
 
@@ -65,19 +68,17 @@
             })
         });
 
+        const data = await response.json();
+
         if (response.status === 200) {
-            const data = await response.json();
-
             currentContext = data.context;
-
-            return data;
         } else {
             const text = await response.text();
 
-            throw new Error(
-                `Got status ${response.status}, response is ${text}`
-            );
+            console.error(`Got status ${response.status}, response is ${text}`);
         }
+
+        return data;
     }
 
     function printMessage(text, who) {

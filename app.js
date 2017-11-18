@@ -49,11 +49,11 @@ app.use(bodyParser.json());
 async function getWeatherReport(entities) {
     const { location, time } = entities.reduce(
         (acc, e) => {
-            if (e.entity === "Time" && e.confidence > 0.8) {
+            if (e.entity === "Time") {
                 acc.time = e.value;
             }
 
-            if (e.entity === "sys-location" && e.confidence > 0.8) {
+            if (e.entity === "sys-location") {
                 acc.location = e.value;
             }
 
@@ -82,6 +82,8 @@ async function getWeatherReport(entities) {
     }
 }
 
+const conversationId = process.env.WATSON_CONVERSATION_WORKSPACE_ID;
+
 app.post("/api/message", (req, res) => {
     const { text, context } = req.body;
 
@@ -91,12 +93,18 @@ app.post("/api/message", (req, res) => {
                 text
             },
             context,
-            workspace_id: process.env.WATSON_CONVERSATION_WORKSPACE_ID
+            workspace_id: conversationId
         },
         (err, response) => {
             if (err) {
                 console.error(err);
-                res.status(500).json(response);
+                res.status(500).json({
+                    output: {
+                        text: [
+                            "Sorry, but something went wrong. Could you try again?"
+                        ]
+                    }
+                });
             } else {
                 res.json(response);
             }
@@ -117,7 +125,12 @@ app.post("/api/weather", async (req, res) => {
         return res.json(weatherReport);
     } catch (e) {
         console.error(e);
-        return res.status(500);
+        return res.status(500).json({
+            messages: [
+                "Sorry, but I couldn't get the weather. Could you try again?"
+            ],
+            weatherReport: null
+        });
     }
 });
 
