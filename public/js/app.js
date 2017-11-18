@@ -1,6 +1,9 @@
 (function main() {
     let currentContext = null;
 
+    /**
+     * @type {HTMLInputElement}
+     */
     const input = document.querySelector("#chat-form-input");
 
     const chatLog = document.querySelector("#chat-log");
@@ -39,9 +42,9 @@
         const response = await fetch("/api/weather", {
             method: "post",
             body: JSON.stringify({ entities }),
-            headers: {
+            headers: new Headers({
                 "Content-Type": "application/json"
-            }
+            })
         });
 
         if (response.status === 200) {
@@ -57,9 +60,9 @@
         const response = await fetch("/api/message", {
             method: "post",
             body: JSON.stringify({ text: text, context: currentContext }),
-            headers: {
+            headers: new Headers({
                 "Content-Type": "application/json"
-            }
+            })
         });
 
         if (response.status === 200) {
