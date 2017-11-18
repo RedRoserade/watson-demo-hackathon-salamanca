@@ -1,0 +1,58 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    font: 16px / 1 sans-serif;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+}
+
+#chat-log {
+    flex-grow: 1;
+
+    display: flex;
+
+    flex-direction: column-reverse;
+}
+
+#chat-form {
+    flex-shrink: 0;
+
+    display: flex;
+}
+
+#chat-form-input {
+    flex-grow: 1;
+}
+
+#chat-form-submit {
+    flex-shrink: 0;
+}
+
+.chat-bubble {
+    border-radius: 4px;
+    padding: 4px;
+    margin: 8px;
+
+    border: 1px solid inset rgba(0, 0, 0, 0.15);
+}
+
+.chat-bubble.mine {
+    align-self: flex-end;
+
+    background-color: seagreen;
+}
+
+.chat-bubble.watson {
+    align-self: flex-start;
+
+    background-color: lightgray;
+}

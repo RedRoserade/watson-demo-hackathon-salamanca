@@ -1,0 +1,9 @@
+.env
+.env.template
+
+.eslintrc
+.gitignore
+.prettierrc
+jsconfig.json
+
+node_modules
