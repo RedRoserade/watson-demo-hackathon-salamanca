@@ -92,7 +92,7 @@
 
         node.textContent = text;
 
-        chatLog.insertBefore(node, chatLog.firstChild);
+        chatLog.appendChild(node);
     }
 
     function printWeatherReport(weatherReport) {

@@ -20,7 +20,8 @@ body {
 
     display: flex;
 
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 #chat-form {
