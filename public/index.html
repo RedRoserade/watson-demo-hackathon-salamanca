@@ -9,18 +9,24 @@
 
     <title>Watson, what's the weather?</title>
 
+    <!-- Make things look less ugly, see /public/style/style.css -->
     <link rel="stylesheet" type="text/css" href="/style/style.css">
 </head>
 
 <body>
+    <!-- Our app. -->
     <div id="app">
+        <!-- Will hold the messages between Watson and the user -->
         <div id="chat-log"></div>
+
+        <!-- The form with a text input for the user to type on and a send button -->
         <form id="chat-form" autocomplete="off">
             <input type="text" name="message" id="chat-form-input" autofocus="">
             <button type="submit" id="chat-form-submit">Send</button>
         </form>
     </div>
 
+    <!-- Make things work, see /public/js/app.js -->
     <script src="/js/app.js" async defer></script>
 </body>
 
