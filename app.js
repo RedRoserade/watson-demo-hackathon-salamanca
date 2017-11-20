@@ -22,6 +22,9 @@ const getWeather = require("yahoo-weather");
 
 const ConversationV1 = require("watson-developer-cloud/conversation/v1");
 
+const watsonConversationServiceName =
+    process.env.WATSON_CONVERSATION_SERVICE_NAME;
+
 const conversationConfig = {
     username: process.env.WATSON_CONVERSATION_USERNAME,
     password: process.env.WATSON_CONVERSATION_PASSWORD,
@@ -29,8 +32,8 @@ const conversationConfig = {
 };
 
 // Use conversation credentials from cfenv when available.
-if (services["conversation-demo-hackathon"]) {
-    const { credentials } = services["conversation-demo-hackathon"];
+if (services[watsonConversationServiceName]) {
+    const { credentials } = services[watsonConversationServiceName];
 
     Object.assign(conversationConfig, credentials);
 }
@@ -77,9 +80,9 @@ async function getWeatherReport(entities) {
 
     if (location) {
         result.weatherReport = await getWeather(location);
-
-        return result;
     }
+
+    return result;
 }
 
 const conversationId = process.env.WATSON_CONVERSATION_WORKSPACE_ID;
